@@ -2,11 +2,47 @@
 #FONTS
 \*------------------------------------*/
 
+@font-face {
+  font-family: "Inter Web";
+  src: url("../fonts/Inter-Regular.woff2")format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Inter Web";
+  src: url("../fonts/Inter-SemiBold.woff2")format("woff2");
+  font-weight: 700;
+}
+
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
-:root {}
+:root {
+    --global-color-alpha-light: #4F95FF;
+    --global-color-alpha: #3385FF;
+    --global-color-alpha-dark: #2E77E6;
+    --global-color-transparent: rgba(51, 133, 255, .3);
+    --global-color-neutral-xxxx-light: #F5F6FA;
+    --global-color-neutral-xxx-light: #E2E3E7; 
+    --global-color-neutral-xx-light: #CACCD4;
+    --global-color-neutral-x-light: #B5B6C0;
+    --global-color-neutral-light: #A0A1AD;
+    --global-color-neutral: #8B8C9A;
+    --global-color-neutral-dark: #757787;
+    --global-color-neutral-x-dark: #606274;
+    --global-color-neutral-xx-dark: #4B4C60;
+    --global-color-neutral-xxx-dark: #35374D;
+    --global-color-neutral-xxxx-dark: #20223A;
+    --global-baseline: 8px; 
+    --global-whitespace-xs: ...; /* = 4px */
+    --global-whitespace-sm: ...; /* = 8px */
+    --global-whitespace-md: ...; /* = 16px */
+    --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
+    --global-whitespace-lg: ...; /* = 32px */ 
+    --global-whitespace-xl: calc(var(--global-whitespace) * 2); /* = 48px */
+    accent-color: #4F95FF;
+}
 
 /* CSS variables here */
 
@@ -23,12 +59,12 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
-    color: grey;
+    font-family: "Inter Web", Helvetica, arial, sans-serif;
+    color: var(--global-color-neutral-xxxx-dark);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: white;
+    background-color: var(--global-color-neutral-xxxx-light);
 }
 
 *,
@@ -44,14 +80,9 @@ html {
 * Customize the background color to match your design.
 */
 
-::-moz-selection {
-    background: HotPink;
-    color: white;
-    text-shadow: none;
-}
 
 ::selection {
-    background: HotPink;
+    background: var(--global-color-alpha);
     color: white;
     text-shadow: none;
 }
@@ -80,7 +111,7 @@ img {
 h1,
 h2,
 h3 {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 h1 {
@@ -156,18 +187,22 @@ hr {
 }
 
 a {
-    color: HotPink;
+    color: var(--global-color-alpha);
     transition: all .1s ease-in-out;
 }
 
 a:visited,
 a:active {
-    color: HotPink;
+    color: var(--global-color-alpha);
 }
 
 a:hover,
 a:focus {
-    color: DeepPink;
+    color: var(--global-color-alpha-light);
+}
+
+label, input {
+    display: block;
 }
 
 /*------------------------------------*\
@@ -186,7 +221,10 @@ a:focus {
 }
 
 .o-row--login {
-    /* stuff here to align the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 /* size modifiers */
@@ -432,6 +470,28 @@ a:focus {
     Website main logo
 */
 
+.c-logo {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.c-logo__symbol {
+    height: 100%;
+}
+
+.c-logo__path--1 {
+    fill: var(--global-color-neutral-xxxx-dark)
+}
+
+.c-logo__path--2 {
+    fill: var(--global-color-alpha)
+}
+
+.c-logo__path--3 {
+    fill: #1B4186
+}
+
 /*
     Component: Card
     ---
@@ -444,15 +504,39 @@ a:focus {
     Everything form related here
 */
 
+.c-form-field--option {
+    display: flex;
+    gap: 8px;
+}
+
 /*
     Component: Input
     ---
     Class to put on all input="text" like form inputs
 */
 
-.c-input {}
+.c-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #E2E3E7;
+    border-radius: 3px;
+    font-family: inherit;
+    color: inherit;
+    font-size: 16px;
+    line-height: 24px; 
+    padding: 11px 16px;
+    outline: none;
+}
 
-.c-input:focus {}
+.c-input:focus {
+    border-color: var(--global-color-alpha);
+    /* box-shadow: 0 0 0 3px #3385ff94; */
+    box-shadow: 0 0 0 3px var(--global-color-transparent);
+}
 
 /*
     Component: Label
@@ -460,7 +544,19 @@ a:focus {
     Class to put on all form labels
 */
 
-.c-label {}
+.c-label {
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 8px;
+    color: #606274;
+}
+
+.c-label--option {
+    font-size: 14px;
+    line-height: 16px;
+    margin-left: 8px;
+    color: #606274;
+}
 
 /* If a input is focused within the form-field class change te color of the label */
 
@@ -472,15 +568,77 @@ a:focus {
     Class to put on form buttons or links
 */
 
-.c-button {}
+.c-button {
+    color: white;
+    background-color: #2E77E6;
+    font-family: inherit;
+    font-weight: 700;
+    width: 100%;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #2E77E6;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 11px 16px;
+    padding-bottom: 8px;
+    outline: none;
+    transition: all .1s ease-in-out;
+}
 
-.c-button:hover {}
+.c-button:hover {
+    background-color: #4F95FF;
+}
 
-.c-button:focus {}
+.c-button:focus {
+    border-color: var(--global-color-alpha);
+    /* box-shadow: 0 0 0 3px #3385ff94; */
+    box-shadow: 0 0 0 3px var(--global-color-transparent);
+}
 
-.c-button:active {}
+.c-button:active {
+    background-color: #2E77E6;
+    box-shadow: none;
+}
 
 .c-button--block {}
+
+.c-card {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px #E2E3E7;
+}
+
+.c-card__body {
+    padding: 0px 48px;
+}
+
+.c-card__header {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+}
+
+.c-card__footer {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+    font-size: 14px;
+    color: #757787;
+    box-shadow: 0 0 0 1px #E2E3E7;
+}
+
+.c-card__password {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+}
+
+
+
 
 /*------------------------------------*\
 #UTILITIES
